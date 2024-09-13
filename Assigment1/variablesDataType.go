@@ -22,6 +22,7 @@ func main() {
 	fmt.Println(d)
 
 	fmt.Println(x)
+	fmt.Printf("Type: %T\n", x)
 	fmt.Println(y)
 	fmt.Println(z)
 	fmt.Println(k)
