@@ -12,7 +12,7 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "72zv5u3xp"
-	dbname   = "postgres"
+	dbname   = "go"
 )
 
 func connect() (*sql.DB, error) {
@@ -78,10 +78,17 @@ func main() {
 	if err != nil {
 		log.Fatal("Error connecting to the database: ", err)
 	}
-
-	user := users{name: "John", age: 25}
-	createTable(db)
-	insertData(db, user.name, user.age)
+	//user := users{name: "John", age: 25}
+	//createTable(db)
+	user := []users{
+		{name: "John", age: 25},
+		{name: "Alice", age: 30},
+		{name: "Bob", age: 35},
+		{name: "Charlie", age: 40},
+	}
+	for _, user := range user {
+		insertData(db, user.name, user.age)
+	}
 	printAllData(db)
 
 }
