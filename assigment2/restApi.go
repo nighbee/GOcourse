@@ -3,11 +3,11 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -39,13 +39,17 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	// Initialize router
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+
+	// Define routes
 	r.Get("/users", getUsers)
 	r.Post("/user", createUser)
 	r.Put("/user/{id}", updateUser)
 	r.Delete("/user/{id}", deleteUser)
 
+	// Start server
 	log.Println("Server started on :8080")
 	http.ListenAndServe(":8080", r)
 }
