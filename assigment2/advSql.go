@@ -64,12 +64,10 @@ func insertUsers(db *sql.DB, users []User) error {
 			return err
 		}
 	}
-
 	err = tx.Commit()
 	if err != nil {
 		return err
 	}
-
 	fmt.Println("Users inserted successfully")
 	return nil
 }
@@ -78,15 +76,14 @@ func insertUsers(db *sql.DB, users []User) error {
 func queryUsers(db *sql.DB, ageFilter int, limit, offset int) ([]User, error) {
 	var users []User
 	var query string
-
 	if ageFilter > 0 {
-		query = `SELECT id, name, age FROM users WHERE age >= $1 ORDER BY id LIMIT $2 OFFSET $3`
+		query = `SELECT id, name, age FROM users WHERE age >= $1 
+                                ORDER BY id LIMIT $2 OFFSET $3`
 		rows, err := db.Query(query, ageFilter, limit, offset)
 		if err != nil {
 			return nil, err
 		}
 		defer rows.Close()
-
 		for rows.Next() {
 			var user User
 			err = rows.Scan(&user.ID, &user.Name, &user.Age)
@@ -102,7 +99,6 @@ func queryUsers(db *sql.DB, ageFilter int, limit, offset int) ([]User, error) {
 			return nil, err
 		}
 		defer rows.Close()
-
 		for rows.Next() {
 			var user User
 			err = rows.Scan(&user.ID, &user.Name, &user.Age)
